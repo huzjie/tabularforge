@@ -1,0 +1,8 @@
+services:
+  tabularforge:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - TABULARFORGE_BACKEND=cpu
+    command: ["python", "-m", "tabularforge", "serve", "--host", "0.0.0.0", "--port", "8000"]

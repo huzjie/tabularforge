@@ -1,0 +1,5 @@
+# tabularforge is zero-dependency: nothing is required to run.
+# Optional integrations:
+# pyyaml>=6.0        # faster YAML loading (built-in fallback exists)
+# transformers>=4.40 # Hugging Face backend
+# langchain>=0.1     # LangChain tool integration

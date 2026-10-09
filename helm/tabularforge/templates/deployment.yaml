@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "tabularforge.fullname" . }}
+  labels:
+    app: {{ include "tabularforge.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "tabularforge.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "tabularforge.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: TABULARFORGE_BACKEND
+              value: {{ .Values.backend | quote }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
